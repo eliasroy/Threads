@@ -1,4 +1,4 @@
-public class CorrupcionMemoria {
+public class Synchronized {
 
     /**
      * Este ejemplo muestra como se puede corromper la memoria al no usar
@@ -26,8 +26,8 @@ public class CorrupcionMemoria {
      * contador.
      */
     public static class Contable implements Runnable{
-        private Contador contador;
-        public  Contable(Contador contador){
+        private CorrupcionMemoria.Contador contador;
+        public  Contable(CorrupcionMemoria.Contador contador){
             this.contador = contador;
         }
         @Override
@@ -45,10 +45,10 @@ public class CorrupcionMemoria {
      * @throws InterruptedException
      */
     public static void iterar () throws InterruptedException {
-        Contador c=new Contador();
+        CorrupcionMemoria.Contador c=new CorrupcionMemoria.Contador();
         Thread hilos[] = new Thread[HILOS];
         for (int i = 0; i < HILOS; i++) {
-            hilos[i] = new Thread(new Contable(c));
+            hilos[i] = new Thread(new CorrupcionMemoria.Contable(c));
         }
 
         for (int i = 0; i < HILOS; i++) {
@@ -74,4 +74,5 @@ public class CorrupcionMemoria {
             e.printStackTrace();
         }
     }
+
 }
