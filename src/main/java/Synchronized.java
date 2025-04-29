@@ -10,7 +10,10 @@ public class Synchronized {
     public static class Contador{
         private int valor;
 
-        public void pint(){
+        /**
+         * Este metodo incrementa el valor del contador de forma sincronizada, acceso solo a un hilo
+         */
+        public synchronized void pint(){
             int old = this.valor;
             old++;
             this.valor = old;
