@@ -1,6 +1,7 @@
 public class BlockSynchronized {
     static class Timbre{
         public  void timbre(){
+            System.out.println("Me acerco al timbre...");
             synchronized (this) {
                 System.out.println("Ding...");
                 try {
@@ -10,6 +11,7 @@ public class BlockSynchronized {
                     System.out.println("ALARMA DE INCENDIOS");
                 }
             }
+            System.out.println("Me alejo del timbre...");
 
         }
     }
