@@ -28,9 +28,15 @@ public class ExecutorService {
     }
 
     public static void main(String[] args) throws InterruptedException{
-        var servicio = Executors.newSingleThreadExecutor();
+        var servicio = Executors.newCachedThreadPool();
         servicio.submit(new TareaFalsa(1, TimeUnit.SECONDS, "1"));
-        System.out.println("Tarea 1 enviada");
+        servicio.submit(new TareaFalsa(2, TimeUnit.SECONDS, "2"));
+        servicio.submit(new TareaFalsa(3, TimeUnit.SECONDS, "3"));
+        servicio.submit(new TareaFalsa(4, TimeUnit.SECONDS, "4"));
+        servicio.shutdown();
+        System.out.println("Esperando tareas");
+        servicio.awaitTermination(10, TimeUnit.DAYS);
+        System.out.println("Tareas finalizadas");
 
 
     }
