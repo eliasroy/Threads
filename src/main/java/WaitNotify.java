@@ -25,7 +25,14 @@ public class WaitNotify {
         }
         @Override
         public void run() {
+            System.out.println("Esperando a que se entregue la password");
+            esperar();
             bandeja.setPassword("1234");
+            System.out.println("La password ha sido entregada");
+            synchronized (bandeja){
+                bandeja.notify();
+                System.out.println("Notificando a los que esperan");
+            }
         }
     }
     static class Recibe implements Runnable{
@@ -35,8 +42,18 @@ public class WaitNotify {
         }
         @Override
         public void run() {
-           String password = bandeja.getPassword();
-            System.out.println("La password es: " + password);
+
+          synchronized (bandeja){
+              try {
+                    System.out.println("Esperando a que se reciba la password");
+                    bandeja.wait();
+                    System.out.println("La password ha sido recibida");
+              } catch (InterruptedException e) {
+                  throw new RuntimeException(e);
+              }
+              String password = bandeja.getPassword();
+              System.out.println("La password es: " + password);
+          }
         }
 
     }
