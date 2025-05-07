@@ -1,5 +1,10 @@
-public class Lock {
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class Locks {
+    static  final Lock microondas = new ReentrantLock();
     public static void accederAlRecurso() {
+        microondas.tryLock();
         System.out.println("Calentando la comida en el microondas...");
         try {
             Thread.sleep(2000);
@@ -7,6 +12,9 @@ public class Lock {
         } catch (InterruptedException e) {
             System.out.println("ALARMA DE INCENDIOS");
             System.exit(1);
+        }finally {
+            microondas.unlock();
+            System.out.println("El microondas se ha apagado");
         }
     }
 
