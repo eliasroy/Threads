@@ -4,7 +4,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Locks {
     static  final Lock microondas = new ReentrantLock();
     public static void accederAlRecurso() {
-        microondas.tryLock();
+        microondas.lock();
         System.out.println("Calentando la comida en el microondas...");
         try {
             Thread.sleep(2000);
