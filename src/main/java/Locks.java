@@ -11,7 +11,7 @@ public class Locks {
            }
        }catch (InterruptedException e) {
            System.out.println("ALARMA DE INCENDIOS");
-           return;git
+           return;
          }
         System.out.println("Calentando la comida en el microondas...");
         try {
