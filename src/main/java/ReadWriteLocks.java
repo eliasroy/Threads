@@ -1,7 +1,9 @@
 import java.util.Random;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ReadWriteLock {
+public class ReadWriteLocks {
 
 
 
@@ -23,17 +25,30 @@ public class ReadWriteLock {
         }
 
         Random rnd = new Random();
-
+        ReadWriteLock lock= new ReentrantReadWriteLock();
         public void read() {
 
-           log("Reading...");
-            esperar(rnd.nextInt(1000));
-            log("Read complete");
+           try {
+               log("Pido permiso de lectura");
+                lock.readLock().lock();
+                log("Reading...");
+                esperar(rnd.nextInt(1000));
+                log("Read complete");
+            }finally {
+                lock.readLock().unlock();
+            }
+
         }
         public void write() {
-           log("Writing...");
-            esperar(rnd.nextInt(1000));
-            log("Write complete");
+           try {
+                log("Pido permiso de escritura");
+                lock.writeLock().lock();
+               log("Writing...");
+               esperar(rnd.nextInt(1000));
+               log("Write complete");
+           }finally {
+                lock.writeLock().unlock();
+           }
         }
     }
 
@@ -43,6 +58,10 @@ public class ReadWriteLock {
         Runnable read=()-> repo.read();
         Runnable write=()-> repo.write();
 
+        for (int i = 0; i < 10; i++) {
+            tp.submit(read);
+        }
+        tp.submit(write);
         for (int i = 0; i < 10; i++) {
             tp.submit(read);
         }
