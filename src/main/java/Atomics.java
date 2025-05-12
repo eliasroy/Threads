@@ -1,10 +1,12 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Atomics {
-    static  int total=0;
+     static AtomicInteger total = new AtomicInteger(0);
     public static class  Counter implements Runnable{
         @Override
         public void run() {
             for (int i = 0; i < 10000; i++) {
-                total++;
+               total.incrementAndGet();
             }
         }
     }
@@ -22,4 +24,5 @@ public class Atomics {
         }
         System.out.println("Total: " + total);
     }
+
 }
