@@ -24,6 +24,4 @@ public class Atomics {
         }
         System.out.println("Total: " + total);
     }
-
-
 }
